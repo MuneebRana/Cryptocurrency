@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Welcome Page</title>
+    <th:block th:include="layout/header"></th:block>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        body,h1 {font-family: "Raleway", sans-serif}
+        body, html {height: 100%}
+        .bgimg {
+            min-height: 90%;
+            background: url("https://news.bitcoin.com/wp-content/uploads/2017/06/zastavki.jpg") center;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+    <div class="w3-display-middle">
+        <h2 class="w3-jumbo w3-animate-top">WELCOME TO BIT-NANCE</h2>
+        <hr class="w3-border-grey" style="margin:auto;width:100%">
+    </div>
+    <div class="w3-display-bottomleft w3-padding-large">
+        Powered by Spring Boot
+    </div>
+</div>
+</body>
+</html>

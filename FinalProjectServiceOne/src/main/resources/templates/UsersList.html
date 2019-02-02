@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Users</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+</head>
+<body style="background-color: gray">
+<div class="container">
+    <div th:fragment="header">
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" th:href="@{/}" style="color: gold">BIT-NANCE</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a th:href="@{/loginPageAccess}">Login</a></li>
+                    <li><a th:href="@{/register}">Registration</a></li>
+                    <li><a th:href="@{/order}" style="color: red">Buy & Sell</a></li>
+                    <li><a th:href="@{/users}" style="color: red;">Users List</a></li>
+                    <li><a th:href="@{/logout}" style="color: red;">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(user)}">
+        <h2>All Registered Users</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Bitcoins</th>
+                <th>Dollars</th>
+            </tr>
+            <tr th:each="user : ${user}">
+                <td th:text="${user.id}">Id</td>
+                <td th:text="${user.firstName}">First Name</td>
+                <td th:text="${user.lastName}">Last Name</td>
+                <td th:text="${user.userName}">Username</td>
+                <td th:text="${user.email}">Email</td>
+                <td th:text="${user.password}">Password</td>
+                <td th:text="${user.bitcoins}">Email</td>
+                <td th:text="${user.dollars}">Password</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+
+1. Login Service
+      a) New user registration (DONE)
+      b) Sign in with email and password (DONE)
+      c) Storing information in database (password must be hashed) (DONE)
+      d) Assign 100 bitcoins, 100 USD dollars to user by default (DONE)
+
+2. Trading Engine
+      a) User can put in an order for buying of their currency (DONE)
+      b) User can put in an order for selling of their currency (DONE)
+      c) Current Market book (all active buy and sell orders) (DONE)

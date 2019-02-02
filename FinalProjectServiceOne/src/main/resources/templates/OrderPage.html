@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>
+    <title>Title</title>
+
+    <style>
+        body, html {
+        height: 100%;
+            width: 100%;
+
+    }
+    .container {
+        width: 80%;
+    }
+    .col {
+        float: left;
+        width: 50%;
+        height: 50vh;
+        font-family: helvetica;
+
+    }
+
+        #table1,#table2{
+            overflow-y: scroll;
+        }
+    </style>
+
+
+
+</head>
+<body style="background: gray">
+<div class="container">
+    <div th:fragment="header">
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" th:href="@{/}" style="color: gold">BIT-NANCE</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a th:href="@{/loginPageAccess}">Login</a></li>
+                    <li><a th:href="@{/register}">Registration</a></li>
+                    <li><a th:href="@{/order}" style="color: red">Buy & Sell</a></li>
+                    <li><a th:href="@{/users}" style="color: red;">Users List</a></li>
+                    <li><a th:href="@{/logout}" style="color: red;">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="container" >
+
+
+    <div class="one col" id="table1" style="background: darkgray">
+            <h4 style="text-align: center">Active Buy Orders</h4>
+            <table class="table table-sm table-dark" style="text-align: center">
+                <tr>
+                    <th style="text-align: center; width: 33%">Buy Price (USD)</th>
+                    <th style="text-align: center; width: 33%">Buy Amount (BTS)</th>
+                    <th style="text-align: center; width: 33%">Total (USD)</th>
+                </tr>
+                <div th:if="${not #lists.isEmpty(buys)}">
+                    <tr th:each="buy : ${buys}">
+                        <td th:text="${buy.buyPrice}">Price</td>
+                        <td th:text="${buy.buyAmount}">Amount</td>
+                        <td th:text="${buy.buyTotal}">Total</td>
+                    </tr>
+                </div>
+            </table>
+    </div>
+
+    <div class="two col even" >
+        <div class="panel panel-login">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form id="buy-form" role="form" action="buyForm"  th:object="${buy}" th:action="@{/orderBuy}" class="form-horizontal"  method="get" style="height: 50vh" >
+                            <div class="form-group" style="background: green; border: 1px solid black">
+                                <div class="col-sm-10" >
+                                    <h4>Buying BitCoins</h4>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <h4>Price:</h4>
+                                    <input type="number" min="1" max="10000" th:field="${buy.buyPrice}" name="buyPrice" id="buyPrice" class="form-control" placeholder="Price for your desired Bitcoin" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <h4>Amount</h4>
+                                    <input type="number" min="1" max="999"  th:field="${buy.buyAmount}" name="buyAmount" id="buyAmount" class="form-control" placeholder="Amount of desired Bitcoins"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <h4>Total:</h4>
+                                    <div id="buyTotal">0</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary" style="width: 100%; background: green">Buy</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="three col" id="table2" style="background:darkgray ;">
+            <h4 style="text-align: center">Active Sell Orders</h4>
+            <table class="table table-sm table-dark" style="text-align: center">
+                <tr>
+                    <th style="text-align: center; width: 33%">Sell Price (USD)</th>
+                    <th style="text-align: center; width: 33%">Sell Amount (BTS)</th>
+                    <th style="text-align: center; width: 33%">Total (USD)</th>
+                </tr>
+                <div th:if="${not #lists.isEmpty(sells)}">
+                    <tr th:each="sell : ${sells}">
+                        <td th:text="${sell.sellPrice}">Price</td>
+                        <td th:text="${sell.sellAmount}">Amount</td>
+                        <td th:text="${sell.sellTotal}">Total</td>
+                    </tr>
+                </div>
+            </table>
+    </div>
+
+    <div class="four col even">
+        <div class="panel panel-login">
+            <div class="panel-body" style="height:50vh">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form id="sell-forms" role="form" action="sellForm" th:object="${sell}"   th:action="@{/orderSell}" class="form-horizontal"  method="get" style="height: 50vh">
+                            <div class="form-group" style="background: crimson; border: 1px solid black">
+                                <div class="col-sm-10" >
+                                    <h4 style="">Selling Bitcoins</h4>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <h4>Price:</h4>
+                                    <input type="number"min="1" max="10000" th:field="${sell.sellPrice}" name="sellPrice" id="sellPrice"  class="form-control" placeholder="Price for your desired Bitcoin" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <h4>Amount:</h4>
+                                    <input type="number"min="1" max="999" th:field="${sell.sellAmount}" name="sellAmount" id="sellAmount"  class="form-control" placeholder="Amount of desired Bitcoins"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <h4>Total:</h4>
+                                    <div id="sellTotal" >0</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary" style="width: 100%; background: crimson">Sell</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#buyPrice,#buyAmount').on('input propertychange paste', function() {
+
+
+        $('#buyTotal').html(parseFloat($("#buyPrice").val()!=''?$("#buyPrice").val():0)*parseFloat($("#buyAmount").val()!=''?$("#buyAmount").val():0));
+    });
+
+
+    $('#sellPrice,#sellAmount').on('input propertychange paste', function() {
+
+
+        $('#sellTotal').html(parseFloat($("#sellPrice").val()!=''?$("#sellPrice").val():0)*parseFloat($("#sellAmount").val()!=''?$("#sellAmount").val():0));
+    });
+
+
+</script>
+</body>
+</html>
